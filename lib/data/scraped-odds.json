@@ -1,0 +1,106 @@
+{
+  "tournamentWinner": {
+    "IND": 3.5,
+    "AUS": 4,
+    "ENG": 5,
+    "RSA": 5.5,
+    "NZ": 8,
+    "PAK": 9,
+    "WI": 11,
+    "SL": 17,
+    "AFG": 21,
+    "BAN": 34,
+    "IRE": 67,
+    "ZIM": 101,
+    "NED": 151,
+    "NEP": 201,
+    "USA": 201,
+    "NAM": 251,
+    "OMA": 301,
+    "UAE": 501,
+    "CAN": 501,
+    "ITA": 501
+  },
+  "matchOdds": [
+    {
+      "team1": "IND",
+      "team2": "PAK",
+      "team1Odds": 1.57,
+      "team2Odds": 2.4
+    },
+    {
+      "team1": "IND",
+      "team2": "USA",
+      "team1Odds": 1.08,
+      "team2Odds": 8.5
+    },
+    {
+      "team1": "AUS",
+      "team2": "SL",
+      "team1Odds": 1.45,
+      "team2Odds": 2.75
+    },
+    {
+      "team1": "ENG",
+      "team2": "WI",
+      "team1Odds": 1.62,
+      "team2Odds": 2.3
+    },
+    {
+      "team1": "RSA",
+      "team2": "NZ",
+      "team1Odds": 1.83,
+      "team2Odds": 2
+    },
+    {
+      "team1": "AFG",
+      "team2": "NZ",
+      "team1Odds": 2.5,
+      "team2Odds": 1.55
+    },
+    {
+      "team1": "NED",
+      "team2": "PAK",
+      "team1Odds": 5.5,
+      "team2Odds": 1.15
+    },
+    {
+      "team1": "BAN",
+      "team2": "WI",
+      "team1Odds": 2.1,
+      "team2Odds": 1.75
+    },
+    {
+      "team1": "ENG",
+      "team2": "NEP",
+      "team1Odds": 1.05,
+      "team2Odds": 12
+    },
+    {
+      "team1": "AUS",
+      "team2": "IRE",
+      "team1Odds": 1.12,
+      "team2Odds": 6.5
+    },
+    {
+      "team1": "RSA",
+      "team2": "AFG",
+      "team1Odds": 1.5,
+      "team2Odds": 2.65
+    },
+    {
+      "team1": "IND",
+      "team2": "AUS",
+      "team1Odds": 1.8,
+      "team2Odds": 2.05
+    },
+    {
+      "team1": "ENG",
+      "team2": "RSA",
+      "team1Odds": 1.9,
+      "team2Odds": 1.95
+    }
+  ],
+  "scrapedAt": "2025-12-21T20:34:42.765Z",
+  "source": "fallback-consensus-odds"
+}
