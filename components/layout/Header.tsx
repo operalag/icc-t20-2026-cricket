@@ -1,10 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
+import { useTonAddress } from '@tonconnect/ui-react';
 import { useWalletStore } from '@/lib/store/wallet-store';
 import { useEffect } from 'react';
 import { TrophyIcon } from 'lucide-react';
+import { WalletDisplay } from '../WalletDisplay';
 
 export function Header() {
   const address = useTonAddress();
@@ -14,9 +15,6 @@ export function Header() {
     if (address) {
       setAddress(address);
       setConnected(true);
-      // In production, fetch balance from blockchain
-      // For demo, simulate balance
-      useWalletStore.getState().setBalance(Math.random() * 1000 + 100);
     } else {
       setAddress(null);
       setConnected(false);
@@ -63,7 +61,7 @@ export function Header() {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <TonConnectButton />
+            <WalletDisplay />
           </div>
         </div>
       </div>
