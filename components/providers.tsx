@@ -2,28 +2,15 @@
 
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
 import { DisclaimerModal } from './DisclaimerModal';
-import { useEffect, useState } from 'react';
+
+// Always use the production Vercel URL for the manifest
+// This is required because Tonkeeper wallet needs to fetch this URL
+// and it can't access localhost from the mobile app
+const MANIFEST_URL = 'https://icc-t20-2026-cricket.vercel.app/tonconnect-manifest.json';
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const [manifestUrl, setManifestUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Set manifest URL on client side only
-    setManifestUrl(`${window.location.origin}/tonconnect-manifest.json`);
-  }, []);
-
-  // Don't render TonConnect until we have the manifest URL
-  if (!manifestUrl) {
-    return (
-      <>
-        <DisclaimerModal />
-        {children}
-      </>
-    );
-  }
-
   return (
-    <TonConnectUIProvider manifestUrl={manifestUrl}>
+    <TonConnectUIProvider manifestUrl={MANIFEST_URL}>
       <DisclaimerModal />
       {children}
     </TonConnectUIProvider>
