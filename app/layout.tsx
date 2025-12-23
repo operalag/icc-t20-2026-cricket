@@ -7,9 +7,160 @@ import { BetSlip } from '@/components/bet-slip/BetSlip';
 
 const inter = Inter({ subsets: ['latin'] });
 
+const siteUrl = 'https://icc-t20-2026-cricket.vercel.app';
+
 export const metadata: Metadata = {
-  title: 'Cricket Prediction Markets - 2026 ICC T20 World Cup',
-  description: 'Decentralized prediction markets for the 2026 ICC T20 World Cup on TON blockchain',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'Cricket Prediction Markets | TON Blockchain | ICC T20 World Cup 2026',
+    template: '%s | Cricket Prediction Markets',
+  },
+  description:
+    'Decentralized cricket prediction markets on TON blockchain for ICC T20 World Cup 2026. Bet on India, Pakistan, Australia & 20 teams. Telegram-native crypto betting with transparent odds. Popular in India & Indonesia.',
+  keywords: [
+    // Cricket keywords
+    'cricket prediction market',
+    'cricket betting',
+    'ICC T20 World Cup 2026',
+    'T20 cricket betting',
+    'cricket odds',
+    'India cricket',
+    'India vs Pakistan',
+    'cricket match predictions',
+    'IPL betting',
+    'cricket world cup',
+
+    // TON & Crypto keywords
+    'TON blockchain',
+    'TON betting',
+    'crypto prediction market',
+    'decentralized betting',
+    'blockchain betting',
+    'TON wallet',
+    'Toncoin betting',
+    'Web3 betting',
+    'DeFi prediction market',
+
+    // Telegram keywords
+    'Telegram betting',
+    'Telegram prediction market',
+    'Telegram crypto betting',
+    'Telegram mini app',
+    'TON Telegram',
+
+    // Regional keywords
+    'India betting',
+    'Indonesia betting',
+    'cricket betting India',
+    'cricket betting Indonesia',
+    'Asia cricket betting',
+    'South Asia prediction market',
+
+    // General
+    'prediction market',
+    'sports betting',
+    'match winner prediction',
+    'cricket forecast',
+    'live cricket odds',
+  ],
+  authors: [{ name: 'Cricket Prediction Markets' }],
+  creator: 'Cricket Prediction Markets',
+  publisher: 'Cricket Prediction Markets',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    alternateLocale: ['hi_IN', 'id_ID'],
+    url: siteUrl,
+    siteName: 'Cricket Prediction Markets',
+    title: 'Cricket Prediction Markets on TON | ICC T20 World Cup 2026',
+    description:
+      'Bet on ICC T20 World Cup 2026 with TON blockchain. Decentralized prediction markets for India, Pakistan, Australia & more. Telegram-native, transparent odds.',
+    images: [
+      {
+        url: '/images/cricket4.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Cricket Prediction Markets - ICC T20 World Cup 2026',
+        type: 'image/jpeg',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cricket Prediction Markets | TON Blockchain Betting',
+    description:
+      'Decentralized cricket betting on TON. ICC T20 World Cup 2026 predictions. India, Indonesia & global. Telegram-native.',
+    images: ['/images/cricket4.jpg'],
+    creator: '@CricketMarkets',
+  },
+  verification: {
+    // Add your verification codes when available
+    // google: 'your-google-verification-code',
+    // yandex: 'your-yandex-verification-code',
+  },
+  alternates: {
+    canonical: siteUrl,
+    languages: {
+      'en-US': siteUrl,
+      'hi-IN': `${siteUrl}/hi`,
+      'id-ID': `${siteUrl}/id`,
+    },
+  },
+  category: 'sports betting',
+  classification: 'Prediction Markets, Sports Betting, Cryptocurrency',
+  other: {
+    'apple-mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'black-translucent',
+    'apple-mobile-web-app-title': 'Cricket Markets',
+    'mobile-web-app-capable': 'yes',
+    'msapplication-TileColor': '#0088CC',
+    'theme-color': '#0088CC',
+    'telegram:channel': '@CricketPredictionMarkets',
+    'geo.region': 'IN',
+    'geo.placename': 'India',
+    'ICBM': '20.5937, 78.9629',
+  },
+};
+
+// JSON-LD structured data for rich snippets
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Cricket Prediction Markets',
+  description: 'Decentralized cricket prediction markets on TON blockchain for ICC T20 World Cup 2026',
+  url: siteUrl,
+  applicationCategory: 'Sports, Finance',
+  operatingSystem: 'Web',
+  offers: {
+    '@type': 'Offer',
+    category: 'Prediction Markets',
+  },
+  audience: {
+    '@type': 'Audience',
+    audienceType: 'Cricket Fans, Sports Bettors, Crypto Users',
+    geographicArea: ['India', 'Indonesia', 'Pakistan', 'Bangladesh', 'Sri Lanka', 'Australia', 'England'],
+  },
+  about: {
+    '@type': 'SportsEvent',
+    name: 'ICC T20 World Cup 2026',
+    startDate: '2026-02-07',
+    endDate: '2026-03-08',
+    location: {
+      '@type': 'Place',
+      name: 'India & Sri Lanka',
+    },
+  },
 };
 
 export default function RootLayout({
@@ -19,6 +170,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/icon.svg" />
+        <meta name="format-detection" content="telephone=no" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={inter.className}>
         <Providers>
           <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">

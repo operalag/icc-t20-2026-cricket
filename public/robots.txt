@@ -1,0 +1,16 @@
+# Cricket Prediction Markets - Robots.txt
+# https://icc-t20-2026-cricket.vercel.app
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://icc-t20-2026-cricket.vercel.app/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
+
+# Block API routes from indexing
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
