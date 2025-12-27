@@ -56,7 +56,7 @@ export function Header() {
               href="/portfolio"
               className="text-gray-700 hover:text-ton-blue font-medium transition"
             >
-              My Bets
+              My Markets
             </Link>
           </nav>
 
