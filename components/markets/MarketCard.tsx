@@ -4,6 +4,7 @@ import { Market, MarketStatus } from '@/types/markets';
 import { useBetSlipStore } from '@/lib/store/bet-slip-store';
 import { formatDistanceToNow } from 'date-fns';
 import { TrendingUpIcon, ClockIcon } from 'lucide-react';
+import Link from 'next/link';
 import Image from 'next/image';
 
 interface MarketCardProps {
@@ -20,30 +21,32 @@ export function MarketCard({ market }: MarketCardProps) {
   return (
     <div className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
       {/* Header */}
-      <div className="p-5 border-b border-gray-100">
-        <div className="flex items-start justify-between mb-2">
-          <div className="flex-1">
-            <h3 className="font-bold text-lg text-gray-900 mb-1">
-              {market.title}
-            </h3>
-            <p className="text-sm text-gray-600">{market.description}</p>
+      <Link href={`/markets/${market.id}`} className="block hover:bg-gray-50 transition-colors">
+        <div className="p-5 border-b border-gray-100">
+          <div className="flex items-start justify-between mb-2">
+            <div className="flex-1">
+              <h3 className="font-bold text-lg text-gray-900 mb-1">
+                {market.title}
+              </h3>
+              <p className="text-sm text-gray-600">{market.description}</p>
+            </div>
+            <StatusBadge status={market.status} />
           </div>
-          <StatusBadge status={market.status} />
-        </div>
 
-        <div className="flex items-center space-x-4 text-sm text-gray-500 mt-3">
-          <div className="flex items-center space-x-1">
-            <TrendingUpIcon className="w-4 h-4" />
-            <span>{(market.totalVolume / 1000).toFixed(1)}K TON</span>
-          </div>
-          <div className="flex items-center space-x-1">
-            <ClockIcon className="w-4 h-4" />
-            <span>
-              Closes {formatDistanceToNow(market.closingTime, { addSuffix: true })}
-            </span>
+          <div className="flex items-center space-x-4 text-sm text-gray-500 mt-3">
+            <div className="flex items-center space-x-1">
+              <TrendingUpIcon className="w-4 h-4" />
+              <span>{(market.totalVolume / 1000).toFixed(1)}K TON</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <ClockIcon className="w-4 h-4" />
+              <span>
+                Closes {formatDistanceToNow(market.closingTime, { addSuffix: true })}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
+      </Link>
 
       {/* Outcomes */}
       <div className="p-5">
