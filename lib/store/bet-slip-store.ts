@@ -42,8 +42,8 @@ export const useBetSlipStore = create<BetSlipStore>()(
             outcomeId,
             outcomeName: outcome.name,
             odds: outcome.odds,
-            amount: 10,
-            potentialReturn: 10 * outcome.odds,
+            amount: 1,
+            potentialReturn: 1 * outcome.odds,
           };
 
           set((state) => ({

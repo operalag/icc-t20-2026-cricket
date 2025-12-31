@@ -254,7 +254,7 @@ export default function MarketPage() {
                         onClick={() => addItem(market, outcome.id)}
                         className="flex-1 py-3.5 bg-ton-blue hover:bg-ton-darkblue text-white rounded-2xl font-black text-sm transition-all shadow-lg shadow-blue-500/25 active:scale-[0.98] flex items-center justify-center gap-2"
                       >
-                        Invest
+                        Buy
                       </button>
                       <button
                         className="px-4 bg-slate-100 text-slate-400 rounded-2xl font-bold text-sm transition-colors cursor-not-allowed border border-slate-200"

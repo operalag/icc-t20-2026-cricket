@@ -3,6 +3,8 @@
 import { BetSlipItem as BetSlipItemType } from '@/types/markets';
 import { useBetSlipStore } from '@/lib/store/bet-slip-store';
 import { XIcon } from 'lucide-react';
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
 
 interface BetSlipItemProps {
   item: BetSlipItemType;
@@ -10,10 +12,22 @@ interface BetSlipItemProps {
 
 export function BetSlipItem({ item }: BetSlipItemProps) {
   const { removeItem, updateAmount } = useBetSlipStore();
+  const [amountStr, setAmountStr] = useState(item.amount.toString());
+
+  // Sync with store if changed externally (but handled carefully to avoid cursor jumps, 
+  // mostly for initial load or external updates)
+  useEffect(() => {
+    // Only update if the numeric value matches but string representation is significantly different
+    // or if we want to force sync. For simplicity, we sync if the parsed value is different.
+    if (parseFloat(amountStr) !== item.amount) {
+        setAmountStr(item.amount.toString());
+    }
+  }, [item.amount]);
 
   const handleAmountChange = (value: string) => {
-    const amount = parseFloat(value) || 0;
-    if (amount >= 0 && amount <= 10000) {
+    setAmountStr(value);
+    const amount = parseFloat(value);
+    if (!isNaN(amount) && amount >= 0 && amount <= 10000) {
       updateAmount(item.id, amount);
     }
   };
@@ -27,9 +41,9 @@ export function BetSlipItem({ item }: BetSlipItemProps) {
           <div className="font-medium text-gray-900 text-sm mb-1">
             {item.outcomeName}
           </div>
-          <div className="text-xs text-gray-500 line-clamp-1">
+          <Link href={`/markets/${item.market.id}`} className="text-xs text-ton-blue hover:underline line-clamp-1 block">
             {item.market.title}
-          </div>
+          </Link>
         </div>
         <button
           onClick={() => removeItem(item.id)}
@@ -41,13 +55,13 @@ export function BetSlipItem({ item }: BetSlipItemProps) {
 
       <div className="flex items-center space-x-3">
         <div className="flex-1">
-          <label className="block text-xs text-gray-600 mb-1">Invest (TON)</label>
+          <label className="block text-xs text-gray-600 mb-1">Buy Amount (TON)</label>
           <input
             type="number"
             min="0"
             max="10000"
-            step="1"
-            value={item.amount}
+            step="any"
+            value={amountStr}
             onChange={(e) => handleAmountChange(e.target.value)}
             className="w-full border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-ton-blue"
           />

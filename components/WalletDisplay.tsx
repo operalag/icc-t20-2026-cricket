@@ -22,9 +22,9 @@ export function WalletDisplay() {
       }
 
       try {
-        // Use toncenter API to get balance
+        // Use toncenter API to get balance (TESTNET)
         const response = await fetch(
-          `https://toncenter.com/api/v2/getAddressBalance?address=${address}`
+          `https://testnet.toncenter.com/api/v2/getAddressBalance?address=${address}`
         );
         const data = await response.json();
 
