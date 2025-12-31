@@ -589,7 +589,7 @@ export default function MatchesPage() {
                             <div className="flex items-center gap-3 px-4">
                               {team1Odds ? (
                                 <button
-                                  onClick={() => handleBetClick(match.id)}
+                                  onClick={() => handleOutcomeClick(match.id)}
                                   className="min-w-[100px] py-3 px-5 bg-gradient-to-b from-white to-gray-50 hover:from-ton-blue hover:to-blue-600 border-2 border-gray-200 hover:border-ton-blue rounded-xl transition-all text-center group shadow-sm hover:shadow-lg"
                                 >
                                   <div className="text-2xl font-black text-gray-900 group-hover:text-white">
@@ -611,7 +611,7 @@ export default function MatchesPage() {
 
                               {team2Odds ? (
                                 <button
-                                  onClick={() => handleBetClick(match.id)}
+                                  onClick={() => handleOutcomeClick(match.id)}
                                   className="min-w-[100px] py-3 px-5 bg-gradient-to-b from-white to-gray-50 hover:from-ton-blue hover:to-blue-600 border-2 border-gray-200 hover:border-ton-blue rounded-xl transition-all text-center group shadow-sm hover:shadow-lg"
                                 >
                                   <div className="text-2xl font-black text-gray-900 group-hover:text-white">
@@ -662,7 +662,7 @@ export default function MatchesPage() {
                             </div>
                             {market && (
                               <button 
-                                onClick={() => handleBetClick(match.id)}
+                                onClick={() => handleOutcomeClick(match.id)}
                                 className="text-sm text-ton-blue hover:text-blue-700 font-semibold flex items-center gap-1 transition"
                               >
                                 All markets

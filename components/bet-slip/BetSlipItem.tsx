@@ -1,13 +1,13 @@
 'use client';
 
-import { BetSlipItem as BetSlipItemType } from '@/types/markets';
+import { TradeSlipItem as TradeSlipItemType } from '@/types/markets';
 import { useTradeSlipStore } from '@/lib/store/trade-slip-store';
 import { XIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 interface BetSlipItemProps {
-  item: BetSlipItemType;
+  item: TradeSlipItemType;
 }
 
 export function BetSlipItem({ item }: BetSlipItemProps) {

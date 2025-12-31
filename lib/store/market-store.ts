@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Market, MarketStatus, MarketType, BetSlipItem } from '@/types/markets';
+import { Market, MarketStatus, MarketType } from '@/types/markets';
 import { mockMarkets, simulateOddsUpdate } from '@/lib/data/mock-data';
 
 interface MarketFilters {
