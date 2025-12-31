@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { matches, teams, groups, mockMarkets } from '@/lib/data/mock-data';
 import { useBetSlipStore } from '@/lib/store/bet-slip-store';
 import { format, differenceInDays } from 'date-fns';
@@ -38,6 +39,7 @@ const venueCountryFlag: Record<string, string> = {
 };
 
 export default function MatchesPage() {
+  const router = useRouter();
   const [selectedGroup, setSelectedGroup] = useState<GroupKey>('all');
   const [selectedStage, setSelectedStage] = useState<StageFilter>('all');
   const [scrollY, setScrollY] = useState(0);
@@ -109,13 +111,10 @@ export default function MatchesPage() {
     return mockMarkets.find((m) => m.matchId === matchId);
   };
 
-  const handleBetClick = (matchId: number, teamCode: string) => {
+  const handleBetClick = (matchId: number) => {
     const market = findMarketForMatch(matchId);
     if (market) {
-      const outcome = market.outcomes.find((o) => o.metadata?.teamCode === teamCode);
-      if (outcome) {
-        addItem(market, outcome.id);
-      }
+      router.push(`/markets/${market.id}`);
     }
   };
 
@@ -355,7 +354,10 @@ export default function MatchesPage() {
 
               {/* CTA */}
               <div className="mt-10 flex justify-center">
-                <button className="px-8 py-4 bg-gradient-to-r from-ton-blue to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-2xl font-bold text-lg transition-all shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 flex items-center gap-3">
+                <button 
+                  onClick={() => handleBetClick(featuredMatch.id)}
+                  className="px-8 py-4 bg-gradient-to-r from-ton-blue to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-2xl font-bold text-lg transition-all shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 flex items-center gap-3"
+                >
                   <TrophyIcon className="w-5 h-5" />
                   Place Your Prediction
                   <ChevronRightIcon className="w-5 h-5" />
@@ -581,7 +583,7 @@ export default function MatchesPage() {
                             <div className="flex items-center gap-3 px-4">
                               {team1Odds ? (
                                 <button
-                                  onClick={() => handleBetClick(match.id, match.team1.code)}
+                                  onClick={() => handleBetClick(match.id)}
                                   className="min-w-[100px] py-3 px-5 bg-gradient-to-b from-white to-gray-50 hover:from-ton-blue hover:to-blue-600 border-2 border-gray-200 hover:border-ton-blue rounded-xl transition-all text-center group shadow-sm hover:shadow-lg"
                                 >
                                   <div className="text-2xl font-black text-gray-900 group-hover:text-white">
@@ -603,7 +605,7 @@ export default function MatchesPage() {
 
                               {team2Odds ? (
                                 <button
-                                  onClick={() => handleBetClick(match.id, match.team2.code)}
+                                  onClick={() => handleBetClick(match.id)}
                                   className="min-w-[100px] py-3 px-5 bg-gradient-to-b from-white to-gray-50 hover:from-ton-blue hover:to-blue-600 border-2 border-gray-200 hover:border-ton-blue rounded-xl transition-all text-center group shadow-sm hover:shadow-lg"
                                 >
                                   <div className="text-2xl font-black text-gray-900 group-hover:text-white">
@@ -653,7 +655,10 @@ export default function MatchesPage() {
                               <span>{venueCountryFlag[match.country]} {match.city}</span>
                             </div>
                             {market && (
-                              <button className="text-sm text-ton-blue hover:text-blue-700 font-semibold flex items-center gap-1 transition">
+                              <button 
+                                onClick={() => handleBetClick(match.id)}
+                                className="text-sm text-ton-blue hover:text-blue-700 font-semibold flex items-center gap-1 transition"
+                              >
                                 All markets
                                 <ChevronRightIcon className="w-4 h-4" />
                               </button>
