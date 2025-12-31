@@ -18,6 +18,8 @@ export function BetSlipItem({ item }: BetSlipItemProps) {
     }
   };
 
+  const price = 1 / item.odds;
+
   return (
     <div className="p-4">
       <div className="flex items-start justify-between mb-3">
@@ -39,7 +41,7 @@ export function BetSlipItem({ item }: BetSlipItemProps) {
 
       <div className="flex items-center space-x-3">
         <div className="flex-1">
-          <label className="block text-xs text-gray-600 mb-1">Stake (TON)</label>
+          <label className="block text-xs text-gray-600 mb-1">Invest (TON)</label>
           <input
             type="number"
             min="0"
@@ -52,18 +54,18 @@ export function BetSlipItem({ item }: BetSlipItemProps) {
         </div>
 
         <div className="text-right">
-          <div className="text-xs text-gray-600 mb-1">Odds</div>
+          <div className="text-xs text-gray-600 mb-1">Price</div>
           <div className="font-bold text-ton-blue">
-            {item.odds.toFixed(2)}
+            {price.toFixed(2)}
           </div>
         </div>
       </div>
 
       <div className="mt-2 pt-2 border-t border-gray-100">
         <div className="flex justify-between text-xs">
-          <span className="text-gray-600">Potential Return</span>
+          <span className="text-gray-600">Est. Shares</span>
           <span className="font-semibold text-gray-900">
-            {item.potentialReturn.toFixed(2)} TON
+            {item.potentialReturn.toFixed(2)}
           </span>
         </div>
       </div>

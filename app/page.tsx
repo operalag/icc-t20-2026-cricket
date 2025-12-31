@@ -57,7 +57,7 @@ export default function HomePage() {
               Tournament Outrights
             </h2>
             <p className="text-gray-600 mt-1">
-              Bet on tournament winners and top performers
+              Forecast tournament winners and top performers
             </p>
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function HomePage() {
               Upcoming Matches
             </h2>
             <p className="text-gray-600 mt-1">
-              Bet on match outcomes and player performances
+              Trade on match outcomes and player performances
             </p>
           </div>
         </div>

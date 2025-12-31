@@ -16,52 +16,52 @@ export const metadata: Metadata = {
     template: '%s | Cricket Prediction Markets',
   },
   description:
-    'Decentralized cricket prediction markets on TON blockchain for ICC T20 World Cup 2026. Bet on India, Pakistan, Australia & 20 teams. Telegram-native crypto betting with transparent odds. Popular in India & Indonesia.',
+    'Decentralized cricket prediction markets on TON blockchain for ICC T20 World Cup 2026. Trade on India, Pakistan, Australia & 20 teams. Telegram-native crypto forecasts with transparent pricing. Popular in India & Indonesia.',
   keywords: [
     // Cricket keywords
     'cricket prediction market',
-    'cricket betting',
+    'cricket trading',
     'ICC T20 World Cup 2026',
-    'T20 cricket betting',
-    'cricket odds',
+    'T20 cricket forecasting',
+    'cricket pricing',
     'India cricket',
     'India vs Pakistan',
     'cricket match predictions',
-    'IPL betting',
+    'IPL trading',
     'cricket world cup',
 
     // TON & Crypto keywords
     'TON blockchain',
-    'TON betting',
+    'TON prediction',
     'crypto prediction market',
-    'decentralized betting',
-    'blockchain betting',
+    'decentralized trading',
+    'blockchain trading',
     'TON wallet',
-    'Toncoin betting',
-    'Web3 betting',
+    'Toncoin trading',
+    'Web3 forecasting',
     'DeFi prediction market',
 
     // Telegram keywords
-    'Telegram betting',
-    'Telegram prediction market',
-    'Telegram crypto betting',
+    'Telegram prediction',
+    'Telegram forecast',
+    'Telegram crypto trading',
     'Telegram mini app',
     'TON Telegram',
 
     // Regional keywords
-    'India betting',
-    'Indonesia betting',
-    'cricket betting India',
-    'cricket betting Indonesia',
-    'Asia cricket betting',
+    'India markets',
+    'Indonesia trading',
+    'cricket markets India',
+    'cricket forecasting Indonesia',
+    'Asia cricket trading',
     'South Asia prediction market',
 
     // General
     'prediction market',
-    'sports betting',
+    'sports forecasting',
     'match winner prediction',
     'cricket forecast',
-    'live cricket odds',
+    'live cricket pricing',
   ],
   authors: [{ name: 'Cricket Prediction Markets' }],
   creator: 'Cricket Prediction Markets',
@@ -85,7 +85,7 @@ export const metadata: Metadata = {
     siteName: 'Cricket Prediction Markets',
     title: 'Cricket Prediction Markets on TON | ICC T20 World Cup 2026',
     description:
-      'Bet on ICC T20 World Cup 2026 with TON blockchain. Decentralized prediction markets for India, Pakistan, Australia & more. Telegram-native, transparent odds.',
+      'Trade on ICC T20 World Cup 2026 with TON blockchain. Decentralized prediction markets for India, Pakistan, Australia & more. Telegram-native, transparent pricing.',
     images: [
       {
         url: '/images/cricket4.jpg',
@@ -98,9 +98,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cricket Prediction Markets | TON Blockchain Betting',
+    title: 'Cricket Prediction Markets | TON Blockchain Trading',
     description:
-      'Decentralized cricket betting on TON. ICC T20 World Cup 2026 predictions. India, Indonesia & global. Telegram-native.',
+      'Decentralized cricket forecasting on TON. ICC T20 World Cup 2026 predictions. India, Indonesia & global. Telegram-native.',
     images: ['/images/cricket4.jpg'],
     creator: '@CricketMarkets',
   },
@@ -117,8 +117,8 @@ export const metadata: Metadata = {
       'id-ID': `${siteUrl}/id`,
     },
   },
-  category: 'sports betting',
-  classification: 'Prediction Markets, Sports Betting, Cryptocurrency',
+  category: 'prediction markets',
+  classification: 'Prediction Markets, Sports Trading, Cryptocurrency',
   other: {
     'apple-mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-status-bar-style': 'black-translucent',

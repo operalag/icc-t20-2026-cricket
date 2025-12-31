@@ -39,12 +39,12 @@ export function BetSlip() {
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      alert('Bets placed successfully!');
+      alert('Trade executed successfully!');
       clearItems();
       setIsMobileOpen(false);
     } catch (error) {
-      console.error('Failed to place bets:', error);
-      alert('Failed to place bets');
+      console.error('Failed to execute trade:', error);
+      alert('Trade failed');
     } finally {
       setPlacing(false);
     }
@@ -57,7 +57,7 @@ export function BetSlip() {
         <div className="flex items-center justify-between mb-2">
           <h3 className="font-bold text-lg text-white flex items-center gap-2">
             <ShoppingBagIcon className="w-5 h-5" />
-            Bet Slip
+            Trade Slip
           </h3>
           <div className="flex items-center space-x-2">
             <span className="px-2 py-1 bg-white/20 rounded text-sm font-medium text-white">
@@ -95,7 +95,7 @@ export function BetSlip() {
              <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3">
                <ShoppingBagIcon className="w-6 h-6 text-gray-400" />
              </div>
-             <p>Your bet slip is empty</p>
+             <p>Your trade slip is empty</p>
              <p className="text-xs mt-1">Select outcomes to start trading</p>
           </div>
         ) : (
@@ -112,13 +112,13 @@ export function BetSlip() {
         <div className="p-4 bg-gray-50 border-t border-gray-200 flex-shrink-0">
           <div className="space-y-2 mb-4">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-600">Total Stake</span>
+              <span className="text-gray-600">Total Investment</span>
               <span className="font-semibold text-gray-900">
                 {totalStake.toFixed(2)} TON
               </span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-gray-600">Potential Return</span>
+              <span className="text-gray-600">Est. Return</span>
               <span className="font-semibold text-green-600">
                 {potentialReturn.toFixed(2)} TON
               </span>
@@ -133,10 +133,10 @@ export function BetSlip() {
             {placing ? (
               <>
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                <span>Processing...</span>
+                <span>Executing...</span>
               </>
             ) : connected ? (
-              <span>Place Bets</span>
+              <span>Confirm Trade</span>
             ) : (
               <>
                 <WalletIcon className="w-5 h-5" />

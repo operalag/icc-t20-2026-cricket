@@ -82,7 +82,7 @@ export function HeroSection() {
             <div>
               <div className="font-semibold mb-1 text-white">Real-Time Markets</div>
               <div className="text-sm text-white/70">
-                In-play betting with live odds updates
+                In-play trading with live price updates
               </div>
             </div>
           </div>
