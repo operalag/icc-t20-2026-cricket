@@ -55,7 +55,7 @@ export function BetSlipItem({ item }: BetSlipItemProps) {
 
       <div className="flex items-center space-x-3">
         <div className="flex-1">
-          <label className="block text-xs text-gray-600 mb-1">Buy Amount (TON)</label>
+          <label className="block text-xs text-gray-600 mb-1">Amount (TON)</label>
           <input
             type="number"
             min="0"
