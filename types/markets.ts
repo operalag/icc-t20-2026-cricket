@@ -84,7 +84,7 @@ export interface Market {
   };
 }
 
-export interface BetSlipItem {
+export interface TradeSlipItem {
   id: string;
   market: Market;
   outcomeId: string;

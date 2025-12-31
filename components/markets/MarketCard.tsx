@@ -6,6 +6,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { TrendingUpIcon, ClockIcon } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface MarketCardProps {
   market: Market;
@@ -13,9 +14,11 @@ interface MarketCardProps {
 
 export function MarketCard({ market }: MarketCardProps) {
   const addItem = useBetSlipStore((state) => state.addItem);
+  const router = useRouter();
 
   const handleOutcomeClick = (outcomeId: string) => {
     addItem(market, outcomeId);
+    router.push(`/markets/${market.id}`);
   };
 
   return (

@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { matches, teams, groups, mockMarkets } from '@/lib/data/mock-data';
-import { useBetSlipStore } from '@/lib/store/bet-slip-store';
+import { useTradeSlipStore } from '@/lib/store/trade-slip-store';
 import { format, differenceInDays } from 'date-fns';
 import {
   CalendarIcon,
@@ -43,7 +43,7 @@ export default function MatchesPage() {
   const [selectedGroup, setSelectedGroup] = useState<GroupKey>('all');
   const [selectedStage, setSelectedStage] = useState<StageFilter>('all');
   const [scrollY, setScrollY] = useState(0);
-  const addItem = useBetSlipStore((state) => state.addItem);
+  const addItem = useTradeSlipStore((state) => state.addItem);
 
   // Parallax effect
   useEffect(() => {
@@ -111,9 +111,15 @@ export default function MatchesPage() {
     return mockMarkets.find((m) => m.matchId === matchId);
   };
 
-  const handleBetClick = (matchId: number) => {
+  const handleOutcomeClick = (matchId: number, teamCode?: string) => {
     const market = findMarketForMatch(matchId);
     if (market) {
+      if (teamCode) {
+        const outcome = market.outcomes.find((o) => o.metadata?.teamCode === teamCode);
+        if (outcome) {
+          addItem(market, outcome.id);
+        }
+      }
       router.push(`/markets/${market.id}`);
     }
   };
@@ -355,7 +361,7 @@ export default function MatchesPage() {
               {/* CTA */}
               <div className="mt-10 flex justify-center">
                 <button 
-                  onClick={() => handleBetClick(featuredMatch.id)}
+                  onClick={() => handleOutcomeClick(featuredMatch.id)}
                   className="px-8 py-4 bg-gradient-to-r from-ton-blue to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-2xl font-bold text-lg transition-all shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 flex items-center gap-3"
                 >
                   <TrophyIcon className="w-5 h-5" />

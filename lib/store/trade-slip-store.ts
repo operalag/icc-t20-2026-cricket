@@ -1,9 +1,9 @@
 import { create } from 'zustand';
-import { BetSlipItem, Market } from '@/types/markets';
+import { TradeSlipItem, Market } from '@/types/markets';
 import { persist } from 'zustand/middleware';
 
-interface BetSlipStore {
-  items: BetSlipItem[];
+interface TradeSlipStore {
+  items: TradeSlipItem[];
   addItem: (market: Market, outcomeId: string) => void;
   removeItem: (id: string) => void;
   updateAmount: (id: string, amount: number) => void;
@@ -12,7 +12,7 @@ interface BetSlipStore {
   getPotentialReturn: () => number;
 }
 
-export const useBetSlipStore = create<BetSlipStore>()(
+export const useTradeSlipStore = create<TradeSlipStore>()(
   persist(
     (set, get) => ({
       items: [],
@@ -36,7 +36,7 @@ export const useBetSlipStore = create<BetSlipStore>()(
           }));
         } else {
           // Add new item
-          const newItem: BetSlipItem = {
+          const newItem: TradeSlipItem = {
             id: `${market.id}-${outcomeId}-${Date.now()}`,
             market,
             outcomeId,
@@ -81,7 +81,7 @@ export const useBetSlipStore = create<BetSlipStore>()(
       },
     }),
     {
-      name: 'bet-slip-storage',
+      name: 'trade-slip-storage',
     }
   )
 );
