@@ -1,7 +1,7 @@
 'use client';
 
 import { Market, MarketStatus } from '@/types/markets';
-import { useBetSlipStore } from '@/lib/store/bet-slip-store';
+import { useTradeSlipStore } from '@/lib/store/trade-slip-store';
 import { formatDistanceToNow } from 'date-fns';
 import { TrendingUpIcon, ClockIcon } from 'lucide-react';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ interface MarketCardProps {
 }
 
 export function MarketCard({ market }: MarketCardProps) {
-  const addItem = useBetSlipStore((state) => state.addItem);
+  const addItem = useTradeSlipStore((state) => state.addItem);
   const router = useRouter();
 
   const handleOutcomeClick = (outcomeId: string) => {

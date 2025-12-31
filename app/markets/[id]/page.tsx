@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useBetSlipStore } from '@/lib/store/bet-slip-store';
+import { useTradeSlipStore } from '@/lib/store/trade-slip-store';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
 // Mock history data generator
@@ -38,7 +38,7 @@ export default function MarketPage() {
   const params = useParams();
   const id = params.id as string;
   const market = mockMarkets.find(m => m.id === id);
-  const { addItem, items } = useBetSlipStore();
+  const { addItem, items } = useTradeSlipStore();
 
   if (!market) {
     return (

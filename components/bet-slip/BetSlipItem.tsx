@@ -1,7 +1,7 @@
 'use client';
 
 import { BetSlipItem as BetSlipItemType } from '@/types/markets';
-import { useBetSlipStore } from '@/lib/store/bet-slip-store';
+import { useTradeSlipStore } from '@/lib/store/trade-slip-store';
 import { XIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -11,7 +11,7 @@ interface BetSlipItemProps {
 }
 
 export function BetSlipItem({ item }: BetSlipItemProps) {
-  const { removeItem, updateAmount } = useBetSlipStore();
+  const { removeItem, updateAmount } = useTradeSlipStore();
   const [amountStr, setAmountStr] = useState(item.amount.toString());
 
   // Sync with store if changed externally (but handled carefully to avoid cursor jumps, 

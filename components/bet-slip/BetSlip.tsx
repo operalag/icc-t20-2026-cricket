@@ -1,6 +1,6 @@
 'use client';
 
-import { useBetSlipStore } from '@/lib/store/bet-slip-store';
+import { useTradeSlipStore } from '@/lib/store/trade-slip-store';
 import { useWalletStore } from '@/lib/store/wallet-store';
 import { useTonConnectUI } from '@tonconnect/ui-react';
 import { BetSlipItem } from './BetSlipItem';
@@ -8,7 +8,7 @@ import { XIcon, WalletIcon, ShoppingBagIcon, ChevronDownIcon } from 'lucide-reac
 import { useState, useEffect } from 'react';
 
 export function BetSlip() {
-  const { items, clearItems, getTotalStake, getPotentialReturn } = useBetSlipStore();
+  const { items, clearItems, getTotalStake, getPotentialReturn } = useTradeSlipStore();
   const { connected, balance } = useWalletStore();
   const [tonConnectUI] = useTonConnectUI();
   const [placing, setPlacing] = useState(false);
