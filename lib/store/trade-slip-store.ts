@@ -30,7 +30,7 @@ export const useTradeSlipStore = create<TradeSlipStore>()(
           set((state) => ({
             items: state.items.map((item) =>
               item.id === existingItem.id
-                ? { ...item, amount: item.amount + 10 }
+                ? { ...item, amount: item.amount + 1 }
                 : item
             ),
           }));

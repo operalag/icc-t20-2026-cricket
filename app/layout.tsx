@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from '@/components/providers';
 import { Header } from '@/components/layout/Header';
-import { BetSlip } from '@/components/bet-slip/BetSlip';
+import { TradeSlip } from '@/components/trade-slip/TradeSlip';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -186,7 +186,7 @@ export default function RootLayout({
             <main className="container mx-auto px-4 py-6 max-w-7xl">
               {children}
             </main>
-            <BetSlip />
+            <TradeSlip />
           </div>
         </Providers>
       </body>
