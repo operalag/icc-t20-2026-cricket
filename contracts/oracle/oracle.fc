@@ -1,0 +1,83 @@
+;; Oracle Adapter Contract
+#include "../imports/stdlib.fc";
+#include "../imports/constants.fc";
+#include "../imports/utils.fc";
+
+;; Storage
+;; admin_address: MsgAddress
+;; providers: Dictionary (public_key -> valid_until)
+;; requests: Dictionary (request_id -> request_data)
+
+(slice, cell, cell) load_data() inline {
+    slice ds = get_data().begin_parse();
+    return (
+        ds~load_msg_addr(),
+        ds~load_dict(),
+        ds~load_dict()
+    );
+}
+
+() save_data(slice admin_address, cell providers, cell requests) impure inline {
+    set_data(begin_cell()
+        .store_slice(admin_address)
+        .store_dict(providers)
+        .store_dict(requests)
+        .end_cell()
+    );
+}
+
+() recv_internal(int msg_value, cell in_msg_full, slice in_msg_body) impure {
+    if (in_msg_body.slice_empty?()) { return (); }
+    slice cs = in_msg_full.begin_parse();
+    int flags = cs~load_uint(4);
+    if (flags & 1) { return (); }
+    slice sender_address = cs~load_msg_addr();
+
+    (slice admin_address, cell providers, cell requests) = load_data();
+
+    int op = in_msg_body~load_uint(32);
+    int query_id = in_msg_body~load_uint(64);
+
+    if (op == op::oracle::add_provider) {
+        throw_unless(error::unauthorized, equal_slices(sender_address, admin_address));
+        int public_key = in_msg_body~load_uint(256);
+        providers~dict_set(256, begin_cell().store_uint(public_key, 256).end_cell().begin_parse(), begin_cell().store_uint(1, 1).end_cell().begin_parse());
+        save_data(admin_address, providers, requests);
+        return ();
+    }
+
+    if (op == op::oracle::remove_provider) {
+        throw_unless(error::unauthorized, equal_slices(sender_address, admin_address));
+        int public_key = in_msg_body~load_uint(256);
+        providers~dict_delete(256, begin_cell().store_uint(public_key, 256).end_cell().begin_parse());
+        save_data(admin_address, providers, requests);
+        return ();
+    }
+
+    throw(0xffff);
+}
+
+;; External message for oracle updates (signed)
+() recv_external(slice in_msg) impure {
+    slice signature = in_msg~load_bits(512);
+    cell payload = in_msg~load_ref();
+    int hash = cell_hash(payload);
+    
+    slice cs = payload.begin_parse();
+    int public_key = cs~load_uint(256);
+    
+    (slice admin_address, cell providers, cell requests) = load_data();
+    
+    ;; Verify provider
+    (slice provider_val, int found) = providers.dict_get(256, begin_cell().store_uint(public_key, 256).end_cell().begin_parse());
+    throw_unless(error::unauthorized, found);
+    
+    throw_unless(error::unauthorized, check_signature(hash, signature, public_key));
+    
+    int market_id = cs~load_uint(64);
+    int outcome_id = cs~load_uint(8);
+    
+    ;; In a real implementation, we would forward this to the Settlement Manager
+    ;; For now, we accept it.
+    accept_message();
+}

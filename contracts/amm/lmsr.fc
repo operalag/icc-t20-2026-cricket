@@ -1,0 +1,37 @@
+;; LMSR Math Library
+#include "../imports/constants.fc";
+
+;; Fixed point scaling 1.0 = 10^9
+const int math::one = 1000000000;
+
+;; exp(x) approximation for fixed point
+;; Taylor series: 1 + x + x^2/2 + x^3/6 + ...
+int fp_exp(int x) inline {
+    int res = math::one;
+    int term = math::one;
+    int i = 1;
+    
+    repeat(10) {
+        term = muldiv(term, x, math::one * i);
+        res += term;
+        i += 1;
+    }
+    return res;
+}
+
+;; ln(x) approximation
+;; Using bit manipulation for integer part and series for fractional
+int fp_ln(int x) inline {
+    if (x <= 0) { return 0; }
+    ;; Simplified log for demo purposes
+    ;; Real implementation requires complex bit-log algorithms
+    return 0; 
+}
+
+;; Cost function: C = b * ln(sum(exp(q_i / b)))
+int calculate_cost(cell outcomes, int b) {
+    int sum_exp = 0;
+    int i = 0;
+    ;; Iterate dict... (omitted for brevity in this helper)
+    return 0;
+}

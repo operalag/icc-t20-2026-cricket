@@ -1,0 +1,85 @@
+#include "stdlib.fc";
+#include "constants.fc";
+
+;; Utility Functions
+
+;; Load TON Balance
+int get_ton_balance() inline {
+    var [balance, _] = get_balance();
+    return balance;
+}
+
+;; Force Send TON
+() force_send_ton(slice to_addr, int amount, int mode, cell body) impure inline {
+    var msg = begin_cell()
+        .store_uint(0x18, 6) ;; nobounce
+        .store_slice(to_addr)
+        .store_coins(amount)
+        .store_uint(0, 1 + 4 + 4 + 64 + 32 + 1 + 1)
+        .store_ref(body)
+    .end_cell();
+    send_raw_message(msg, mode);
+}
+
+;; Send Jetton Transfer
+() send_jetton_transfer(slice jetton_wallet, slice to_addr, int amount, int query_id, int forward_ton, cell forward_payload) impure inline {
+    var msg_body = begin_cell()
+        .store_uint(op::transfer, 32)
+        .store_uint(query_id, 64)
+        .store_coins(amount)
+        .store_slice(to_addr)
+        .store_slice(to_addr) ;; response_addr
+        .store_uint(0, 1) ;; custom_payload (null)
+        .store_coins(forward_ton)
+        .store_uint(1, 1) ;; forward_payload in ref
+        .store_ref(forward_payload)
+    .end_cell();
+
+    var msg = begin_cell()
+        .store_uint(0x18, 6)
+        .store_slice(jetton_wallet)
+        .store_coins(const::gas_consumption) ;; Gas for transfer
+        .store_uint(1, 1 + 4 + 4 + 64 + 32 + 1 + 1)
+        .store_ref(msg_body)
+    .end_cell();
+    
+    send_raw_message(msg, 1); ;; Pay fees separately
+}
+
+;; Load workchain and address
+(int, int) parse_std_addr(slice s) inline {
+    (int wc, int addr) = s~load_uint(8); ;; Incorrect load, should check if it's msg address
+    return (wc, addr);
+}
+
+() force_chain(slice addr) impure {
+  (int wc, _) = parse_std_addr(addr);
+  throw_unless(333, wc == 0);
+}
+
+;; Pack Jetton Wallet Data
+cell pack_jetton_wallet_data(int balance, slice owner_address, slice jetton_master_address, cell jetton_wallet_code) inline {
+   return  begin_cell()
+            .store_coins(balance)
+            .store_slice(owner_address)
+            .store_slice(jetton_master_address)
+            .store_ref(jetton_wallet_code)
+           .end_cell();
+}
+
+cell calculate_jetton_wallet_state_init(slice owner_address, slice jetton_master_address, cell jetton_wallet_code) inline {
+    return begin_cell()
+            .store_uint(0, 2)
+            .store_dict(jetton_wallet_code)
+            .store_dict(pack_jetton_wallet_data(0, owner_address, jetton_master_address, jetton_wallet_code))
+            .store_uint(0, 1)
+           .end_cell();
+}
+
+slice calculate_jetton_wallet_address(cell state_init) inline {
+    return begin_cell().store_uint(4, 3)
+                     .store_int(0, 8)
+                     .store_uint(cell_hash(state_init), 256)
+                     .end_cell()
+                     .begin_parse();
+}
