@@ -169,7 +169,7 @@ export default function MarketPage() {
                   </li>
                   <li className="flex gap-2">
                     <span className="text-ton-blue font-bold">•</span>
-                    Forecasts close at match start time.
+                    Trades close at match start time.
                   </li>
                   <li className="flex gap-2">
                     <span className="text-ton-blue font-bold">•</span>

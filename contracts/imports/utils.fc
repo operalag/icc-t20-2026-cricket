@@ -5,7 +5,7 @@
 
 ;; Load TON Balance
 int get_ton_balance() inline {
-    var [balance, _] = get_balance();
+    (int balance, _, _, _) = get_balance();
     return balance;
 }
 
@@ -47,13 +47,14 @@ int get_ton_balance() inline {
 }
 
 ;; Load workchain and address
-(int, int) parse_std_addr(slice s) inline {
-    (int wc, int addr) = s~load_uint(8); ;; Incorrect load, should check if it's msg address
-    return (wc, addr);
+(int, int) parse_std_addr_custom(slice s) inline {
+    (_, var res) = s.parse_std_addr();
+    return res;
 }
 
 () force_chain(slice addr) impure {
-  (int wc, _) = parse_std_addr(addr);
+  (_, var res) = addr.parse_std_addr();
+  (int wc, _) = res;
   throw_unless(333, wc == 0);
 }
 
@@ -70,8 +71,8 @@ cell pack_jetton_wallet_data(int balance, slice owner_address, slice jetton_mast
 cell calculate_jetton_wallet_state_init(slice owner_address, slice jetton_master_address, cell jetton_wallet_code) inline {
     return begin_cell()
             .store_uint(0, 2)
-            .store_dict(jetton_wallet_code)
-            .store_dict(pack_jetton_wallet_data(0, owner_address, jetton_master_address, jetton_wallet_code))
+            .store_ref(jetton_wallet_code) 
+            .store_ref(pack_jetton_wallet_data(0, owner_address, jetton_master_address, jetton_wallet_code))
             .store_uint(0, 1)
            .end_cell();
 }

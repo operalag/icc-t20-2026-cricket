@@ -1,26 +1,14 @@
-'use client';
-
-import { useState, useEffect, useRef } from 'react';
 import { useTonAddress, useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
 import { WalletIcon, LogOutIcon, ChevronDownIcon, CopyIcon, CheckIcon, ExternalLinkIcon } from 'lucide-react';
+import { useWalletStore } from '@/lib/store/wallet-store';
 
 export function WalletDisplay() {
   const address = useTonAddress();
   const wallet = useTonWallet();
   const [tonConnectUI] = useTonConnectUI();
+  const { setBalance: setGlobalBalance } = useWalletStore();
   const [balance, setBalance] = useState<number | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // Fetch balance from TON API
-  useEffect(() => {
-    async function fetchBalance() {
-      if (!address) {
-        setBalance(null);
-        return;
-      }
-
+//...
       try {
         // Use toncenter API to get balance (TESTNET)
         const response = await fetch(
@@ -32,33 +20,13 @@ export function WalletDisplay() {
           // Convert from nanotons to TON
           const tonBalance = parseInt(data.result) / 1e9;
           setBalance(tonBalance);
+          setGlobalBalance(tonBalance);
         }
       } catch (error) {
-        console.error('Failed to fetch balance:', error);
-        // Fallback: set a demo balance
-        setBalance(null);
-      }
-    }
-
-    fetchBalance();
-    // Refresh balance every 30 seconds
-    const interval = setInterval(fetchBalance, 30000);
-    return () => clearInterval(interval);
-  }, [address]);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
+//...
   const handleDisconnect = async () => {
     await tonConnectUI.disconnect();
+    setGlobalBalance(0);
     setIsOpen(false);
   };
 

@@ -1,24 +1,18 @@
-;; Standard TON Library
-;; Source: https://github.com/ton-blockchain/ton/blob/master/crypto/smartcont/stdlib.fc
+;; Standard TON FunC Library (Carefully selected)
 
 forall X -> int is_null (X x) asm "ISNULL";
 forall X -> X first (tuple t) asm "FIRST";
 forall X -> X second (tuple t) asm "SECOND";
 forall X -> X third (tuple t) asm "THIRD";
-forall X -> X fourth (tuple t) asm "3 INDEX";
 
-;; Tuple primitives
 tuple empty_tuple() asm "NIL";
 forall X -> tuple tpush(tuple t, X x) asm "TPUSH";
 forall X -> (tuple, X) tpop(tuple t) asm "TPOP";
 int tlen(tuple t) asm "TLEN";
 
-;; Cell primitives
-int cell_depth(cell c) asm "CDEPTH";
-int cell_null?(cell c) asm "ISNULL";
+(int, slice, slice, cell) get_balance() asm "BALANCE";
+
 builder begin_cell() asm "NEWC";
-builder store_int(builder b, int x, int len) asm "STIX";
-builder store_uint(builder b, int x, int len) asm "STUX";
 builder store_slice(builder b, slice s) asm "STSLICER";
 builder store_coins(builder b, int x) asm "STGRAMS";
 builder store_dict(builder b, cell c) asm "STDICT";
@@ -26,51 +20,33 @@ builder store_ref(builder b, cell c) asm "STREF";
 cell end_cell(builder b) asm "ENDC";
 
 slice begin_parse(cell c) asm "CTOS";
-(slice, int) load_int(slice s, int len) asm "LDIX";
-(slice, int) load_uint(slice s, int len) asm "LDUX";
 (slice, slice) load_msg_addr(slice s) asm "LDMSGADDR";
 (slice, cell) load_ref(slice s) asm "LDREF";
 (slice, cell) load_dict(slice s) asm "LDDICT";
 (slice, int) load_coins(slice s) asm "LDGRAMS";
-(slice, int) preload_uint(slice s, int len) asm "PLDUX";
 int slice_empty?(slice s) asm "SEMPTY";
 int slice_bits(slice s) asm "SBITS";
 int slice_refs(slice s) asm "SREFS";
-(slice, int) load_token_transfer_opcode(slice s) asm "32 LDU";
 
-;; Dictionary primitives
 cell new_dict() asm "NEWDICT";
+(slice, (int, int)) parse_std_addr(slice s) asm "REWRITESTDADDR";
+
+() set_data(cell c) asm "c4 POP";
+cell get_data() asm "c4 PUSH";
+() send_raw_message(cell msg, int mode) asm "SENDRAWMSG";
+int now() asm "NOW";
+() accept_message() asm "ACCEPT";
+
+int equal_slices (slice s1, slice s2) asm "SDEQ";
+int slice_hash(slice s) asm "HASHSU";
+int cell_hash(cell c) asm "HASHCU";
+int check_signature(int hash, slice signature, int public_key) asm "CHKSIGNU";
+
+int min(int x, int y) asm "MIN";
+int max(int x, int y) asm "MAX";
+slice skip_bits(slice s, int len) asm "SDSKIPFIRST";
+slice my_address() asm "MYADDR";
+
 (cell, int) dict_set(cell dict, int key_len, slice index, slice value) asm "DICTSET";
-(cell, int) dict_add(cell dict, int key_len, slice index, slice value) asm "DICTADD";
 (cell, int) dict_delete(cell dict, int key_len, slice index) asm "DICTDEL";
 (slice, int) dict_get(cell dict, int key_len, slice index) asm "DICTGET";
-(slice, slice, int) dict_get_min(cell dict, int key_len) asm "DICTMIN";
-(slice, slice, int) dict_get_next(cell dict, int key_len, slice pivot) asm "DICTGETNEXT";
-
-;; Context primitives
-() set_code(cell new_code) asm "SETCODE";
-(int, slice, slice, cell) get_balance() asm "BALANCE";
-(cell, slice) get_data() asm "c4 PUSH";
-() set_data(cell c) asm "c4 POP";
-() set_c3(cell c) asm "c3 POP";
-cell get_c3() asm "c3 PUSH";
-() commit() asm "COMMIT";
-
-;; Crypto
-int check_signature(int hash, slice signature, int public_key) asm "CHKSIGNU";
-int cell_hash(cell c) asm "HASHCU";
-int string_hash(slice s) asm "STRINGHASHSU";
-
-;; Messages
-() send_raw_message(cell msg, int mode) asm "SENDRAWMSG";
-
-;; Exception handling
-() throw(int excno) asm "THROW";
-() throw_if(int excno, int cond) asm "THROWIF";
-() throw_unless(int excno, int cond) asm "THROWUNLESS";
-
-;; Time
-int now() asm "NOW";
-
-;; Gas
-() accept_message() asm "ACCEPT";

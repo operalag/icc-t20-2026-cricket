@@ -65,7 +65,7 @@
         cell master_msg = in_msg_body~load_ref();
         
         slice master_cs = master_msg.begin_parse();
-        master_cs~skip_bits(32 + 64); ;; op + query_id
+        master_cs = master_cs.skip_bits(32 + 64); ;; op + query_id
         int jetton_amount = master_cs~load_coins();
         
         mint_tokens(to_address, jetton_wallet_code, amount, master_msg);

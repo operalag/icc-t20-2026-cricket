@@ -148,7 +148,7 @@ const jsonLd = {
   },
   audience: {
     '@type': 'Audience',
-    audienceType: 'Cricket Fans, Sports Bettors, Crypto Users',
+    audienceType: 'Cricket Fans, Traders, Crypto Users',
     geographicArea: ['India', 'Indonesia', 'Pakistan', 'Bangladesh', 'Sri Lanka', 'Australia', 'England'],
   },
   about: {

@@ -19,7 +19,11 @@ export const useWalletStore = create<WalletStore>((set) => ({
   connected: false,
   connecting: false,
 
-  setAddress: (address) => set({ address, connected: !!address }),
+  setAddress: (address) => set((state) => ({ 
+    address, 
+    connected: !!address,
+    balance: address ? state.balance : 0 
+  })),
   setBalance: (balance) => set({ balance }),
   setConnected: (connected) => set({ connected }),
   setConnecting: (connecting) => set({ connecting }),
