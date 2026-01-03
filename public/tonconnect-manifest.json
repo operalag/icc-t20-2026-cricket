@@ -1,5 +1,5 @@
 {
-  "url": "https://icc-t20-2026-cricket.vercel.app",
+  "url": "http://localhost:3000",
   "name": "Cricket Prediction Markets",
-  "iconUrl": "https://icc-t20-2026-cricket.vercel.app/icon.svg"
+  "iconUrl": "http://localhost:3000/icon.svg"
 }

@@ -4,8 +4,8 @@
   "description": "TON Blockchain-based prediction market for 2026 ICC T20 World Cup",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npx tsx scripts/update-manifest.ts http://localhost:3000 && next dev",
+    "build": "npx tsx scripts/update-manifest.ts && next build",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
